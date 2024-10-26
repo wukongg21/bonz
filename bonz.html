@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page</title>
+    <script>
+        // Kiểm tra thiết bị
+        function checkDevice() {
+            // Sử dụng userAgent để phát hiện thiết bị
+            if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                // Nếu là mobile, chuyển hướng đến giao diện mobile
+               window.location.href = "mobile.html";
+            } else {
+                // Nếu là PC, chuyển hướng đến giao diện PC
+                window.location.href = "desktop.html";
+            }
+        }
+        // Gọi hàm kiểm tra khi trang được load
+        window.onload = checkDevice;
+    </script>
+</head>
+<body>
+</body>
+</html>

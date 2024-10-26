@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input Error with Button Example</title>
+
+  <!-- Google Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style>
+    .input-container {
+      position: relative;
+      width: 350px;
+      margin-bottom: 10px;
+    }
+
+    label {
+      font-size: 14px;
+      color: #d32f2f; /* Red color for error */
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      padding-right: 40px; /* Space for the icons */
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    input.error {
+      border-color: #d32f2f; /* Red color for error */
+    }
+
+    .icon-error,
+    .icon-delete {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%); /* Center the icon vertically */
+      font-size: 24px;
+      color: #d32f2f; /* Red color for icon */
+      display: none;
+      cursor: pointer;
+    }
+
+    .icon-error {
+      color: #d32f2f;
+    }
+
+    .icon-delete {
+      color: #333;
+    }
+
+    input.error + .icon-error {
+      display: block;
+    }
+
+    p {
+      color: #d32f2f; /* Red color for error text */
+      font-size: 14px;
+      margin-top: 5px;
+      margin-bottom: 0; /* Remove extra space at the bottom */
+      display: none;
+    }
+
+    p.show {
+      display: block;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="input-container">
+    <label for="codeInput">Enter code</label>
+    <input type="text" id="codeInput" placeholder="Enter code" />
+    <!-- Material Icon for error -->
+    <span class="material-icons icon-error">error_outline</span>
+    <!-- Material Icon for delete -->
+    <span class="material-icons icon-delete">close</span>
+    <!-- Error message -->
+    <p id="errorMessage">This code doesn't work. Check that it's correct or try a new one.</p>
+  </div>
+  
+  <button id="submitButton">Submit</button>
+
+  <!-- Add jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      const inputField = $("#codeInput");
+      const errorMessage = $("#errorMessage");
+      const errorIcon = $(".icon-error");
+      const deleteIcon = $(".icon-delete");
+
+      // Handle submit button click
+      $("#submitButton").click(function () {
+        if (inputField.val() === "" || inputField.val() !== "expectedCode") {
+          inputField.addClass("error");
+          errorMessage.addClass("show");
+        } else {
+          inputField.removeClass("error");
+          errorMessage.removeClass("show");
+        }
+      });
+
+      // Toggle error and delete icon on input focus
+      inputField.focus(function () {
+        if (inputField.hasClass("error")) {
+          errorIcon.hide();
+          deleteIcon.show();
+        }
+      });
+
+      // Restore icons when clicking outside
+      inputField.blur(function () {
+        if (inputField.hasClass("error")) {
+          deleteIcon.hide();
+          errorIcon.show();
+        }
+      });
+
+      // Handle delete icon click
+      deleteIcon.click(function () {
+        inputField.val("");
+        inputField.removeClass("error");
+        errorMessage.removeClass("show");
+        deleteIcon.hide();
+        errorIcon.show();
+      });
+    });
+  </script>
+
+</body>
+</html>
